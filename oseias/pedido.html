@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escolhas de Lanche e Almoço</title>
+    <style>
+        header {
+            background-color: black;
+            color: azure;
+            padding: 40px;
+            text-align: center;
+        }
+        body {
+            background-color: aqua;
+        }
+        form {
+            background-color: rgba(0, 98, 255, 0.319);
+            color: black;
+            padding: 30px;
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 10px;
+        }
+        footer {
+            background-color: black;
+            color: azure;
+            padding: 40px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Escolhas de Lanche e Almoço</h1>
+        <nav>
+            <a href="inicial.html">Voltar ao cardápio</a>
+        </nav>
+    </header>
+    
+    <!-- Formulário para lanche e almoço -->
+    <form id="form">
+        <fieldset>
+            <legend>Escolha para o Lanche:</legend>
+            <label><input type="radio" name="lanche" value="1"> Arroz, feijão e ovo cozido</label><br>
+            <label><input type="radio" name="lanche" value="2"> Arroz e molho</label><br>
+            <label><input type="radio" name="lanche" value="3"> Arroz e frango</label><br>
+            <label><input type="radio" name="lanche" value="4"> Cachorro-quente</label><br>
+            <label><input type="radio" name="lanche" value="5"> Arroz e lentilha</label><br>
+            <label><input type="radio" name="lanche" value="6"> Outra opção</label><br>
+            <input type="text" id="outroLanche" placeholder="Especifique outro lanche" style="display:none;">
+        </fieldset>
+        <fieldset>
+            <legend>Escolha para o Almoço:</legend>
+            <label><input type="radio" name="almoco" value="1"> Arroz, mandioca, salada e bolinho de carne</label><br>
+            <label><input type="radio" name="almoco" value="2"> Arroz, mandioca, salada e strogonoff</label><br>
+            <label><input type="radio" name="almoco" value="3"> Arroz, mandioca, salada e carne</label><br>
+            <label><input type="radio" name="almoco" value="4"> Arroz, mandioca, salada e carne de porco</label><br>
+            <label><input type="radio" name="almoco" value="5"> Arroz, mandioca, salada e carne de frango</label><br>
+            <label><input type="radio" name="almoco" value="6"> Arroz, mandioca, salada e carne moída</label><br>
+            <label><input type="radio" name="almoco" value="7"> Outra opção</label><br>
+            <input type="text" id="outroAlmoco" placeholder="Especifique outro almoço" style="display:none;">
+        </fieldset>
+        <button type="button" onclick="processarEscolhas()">Enviar</button>
+    </form>
+
+    <p id="resultado"></p>
+
+    <script>
+        function processarEscolhas() {
+            const lanche = document.querySelector('input[name="lanche"]:checked');
+            const almoco = document.querySelector('input[name="almoco"]:checked');
+            const outroLanche = document.getElementById('outroLanche').value.trim();
+            const outroAlmoco = document.getElementById('outroAlmoco').value.trim();
+            let resultado = '';
+
+            // Processa a escolha do lanche
+            if (lanche) {
+                switch (lanche.value) {
+                    case '1':
+                        resultado += 'Você escolheu para o lanche arroz, feijão e ovo cozido\n';
+                        break;
+                    case '2':
+                        resultado += 'Você escolheu para o lanche arroz e molho\n';
+                        break;
+                    case '3':
+                        resultado += 'Você escolheu para o lanche arroz e frango\n';
+                        break;
+                    case '4':
+                        resultado += 'Você escolheu para o lanche cachorro-quente\n';
+                        break;
+                    case '5':
+                        resultado += 'Você escolheu para o lanche arroz e lentilha\n';
+                        break;
+                    case '6':
+                        resultado += `Então o lanche de hoje será: ${outroLanche}\n`;
+                        break;
+                    default:
+                        resultado += 'Opção inválida para o lanche!\n';
+                        break;
+                }
+            } else {
+                resultado += 'Nenhuma opção de lanche selecionada!\n';
+            }
+
+            // Processa a escolha do almoço
+            if (almoco) {
+                switch (almoco.value) {
+                    case '1':
+                        resultado += 'Você escolheu para o almoço arroz, mandioca, salada e bolinho de carne\n';
+                        break;
+                    case '2':
+                        resultado += 'Você escolheu para o almoço arroz, mandioca, salada e strogonoff\n';
+                        break;
+                    case '3':
+                        resultado += 'Você escolheu para o almoço arroz, mandioca, salada e carne\n';
+                        break;
+                    case '4':
+                        resultado += 'Você escolheu para o almoço arroz, mandioca, salada e carne de porco\n';
+                        break;
+                    case '5':
+                        resultado += 'Você escolheu para o almoço arroz, mandioca, salada e carne de frango\n';
+                        break;
+                    case '6':
+                        resultado += 'Você escolheu para o almoço arroz, mandioca, salada e carne moída\n';
+                        break;
+                    case '7':
+                        resultado += `Então o almoço de hoje será: ${outroAlmoco}\n`;
+                        break;
+                    default:
+                        resultado += 'Opção inválida para o almoço!\n';
+                        break;
+                }
+            } else {
+                resultado += 'Nenhuma opção de almoço selecionada!\n';
+            }
+
+            document.getElementById('resultado').innerText = resultado;
+        }
+
+        // Mostrar o campo de texto se "Outra opção" for selecionada
+        document.querySelectorAll('input[name="lanche"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                document.getElementById('outroLanche').style.display = radio.value === '6' ? 'inline' : 'none';
+            });
+        });
+
+        document.querySelectorAll('input[name="almoco"]').forEach(radio => {
+            radio.addEventListener('change', () => {
+                document.getElementById('outroAlmoco').style.display = radio.value === '7' ? 'inline' : 'none';
+            });
+        });
+    </script>
+    <footer>
+        &copy; Afonso Pena.
+    </footer>
+</body>
+</html>
